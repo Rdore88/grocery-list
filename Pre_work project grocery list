@@ -1,0 +1,53 @@
+groceryList = Hash.new
+
+def intro
+  puts "What would you like to do?"
+  puts "Please choose add, change, delete, display or exit."
+end
+
+loop do
+intro
+choice = gets.chomp.downcase
+case choice
+when 'add'
+  puts "What item would you like to add?"
+  item = gets.chomp.to_sym
+  if groceryList[item].nil?
+    puts "How many do you need?"
+    quantity = gets.chomp.to_i
+    groceryList[item] = quantity
+    puts "#{item.capitalize} has been added to the grocery list and you need to get #{quantity} of them."
+  else
+    puts "#{item.capitalize} is already in the list."
+  end
+when 'change'
+  puts "What item would you like to change?"
+  item = gets.chomp.to_sym
+  if groceryList.include?(item)
+    puts "What would you like to change the quantity of #{item} to?"
+    quantity = gets.chomp.to_i
+    groceryList[item] = quantity
+    puts "the quantity for #{item} has been changed to #{quantity}."
+  else
+    puts "#{item.capitalize} is not in the list."
+  end
+when 'delete'
+  puts "what item would you like to delete?"
+  item=gets.chomp.to_sym
+  if groceryList[item].nil?
+    puts "#{item.capitalize} is not on the list."
+  else
+    groceryList.delete(item)
+    puts "#{item.capitalize} has been deleted from the grocery list."
+  end
+when 'display'
+  groceryList.each do |item, quantity|
+    puts "#{item} - #{quantity}"
+  end
+when 'exit'
+  puts "Happy shopping!"
+  break
+else
+  puts "Please try again."
+end
+end
